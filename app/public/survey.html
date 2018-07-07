@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Survey</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Spirit Animal</h1>
+			<hr>
+			<h2 class="text-center">How relevant are the words listed below to you?</h2>
+			<h3 class="text-center">(On a scale of 1 -- Not so much to 5 -- AF)</h3>
+			<h5 class="text-center">*AF stands for... a lot.</h5>
+
+			<form role="form">
+				<div class="form-group">
+					<label for="">Strong</label>
+					<input type="number" name="strong" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Scary</label>
+					<input type="number" name="scary" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Deadly</label>
+					<input type="number" name="deadly" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Real</label>
+					<input type="number" name="real" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Smart</label>
+					<input type="number" name="smart" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Derp-y</label>
+					<input type="number" name="derpy" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Cynical</label>
+					<input type="number" name="cynical" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Cute</label>
+					<input type="number" name="cute" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Funny</label>
+					<input type="number" name="funny" min="1" max="5">
+				</div>
+				<div class="form-group">
+					<label for="">Stinky</label>
+					<input type="number" name="stinky" min="1" max="5">
+				</div>
+				<button type="submit" class="btn btn-primary submit">Submit Answers</button>
+			</form>
+
+			<div class="text-center">
+				<a href="/"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>		
+			</div>
+		</div>
+	<footer class="footer">
+		<div class="container">
+			<p>The obligatory disclaimer -- this is a homework assignment. The developer for this is not a spirit guru. No animals were harmed in the making of this website. (No guarantees if they were preharmed unfortunately; I just found pictures of animals on the internet.) Also the pictures aren't mine.
+			<br><a href="https://github.com/cecileceng/FriendFinder">See the code <u>here</u> on my GitHub Repo</a></p>
+		</div>
+	</footer>
+	</div>
+
+	<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div id="spirAniPopup" class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Spirit Animal</h3>
+      </div>
+      <div class="modal-body">
+        <h3 id="spirAniName"></h3>
+        <img id="spirAniPic" src="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
+
+<script type="text/javascript">
+	$(".submit").on("click", function(){
+		// Here we grab the form elements
+		var surveyScore = {
+			name: $('#name').val().trim(),
+			photo: $('#photo').val().trim(),
+			scores: [$('#strong').val().trim(),$('#scary').val().trim(),$('#deadly').val().trim(),$('#real').val().trim(),$('#smart').val().trim(),$('#derpy').val().trim(),$('#cynical').val().trim(),$('#cute').val().trim(),$('#funny').val().trim(),$('#stinky').val().trim()]
+		};
+		var currentURL = window.location.origin;
+		$.post(currentURL + '/api/friends', surveyScore, function(data) {
+			$("#spirAniName").text(friendData.name);
+			$("#spirAniPic").attr("src", friendData.photo);
+			$("#spirAniPopup").modal("show");
+		});
+		return false;
+	});
+</script>
+
+</body>
+</html>
